@@ -5,15 +5,8 @@ from random import choice
 import string, logging
 
 app = Flask(__name__, template_folder='./frontend', static_folder='./frontend')
-ENV = 'dev'
-
-if ENV == 'dev':
-    app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-else:
-    app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://tuzhmmegshfmyv:c4a1cfa40a3b3eb182adaa3616137bceeb613fe5331b575fa861d2d6d4624a9f@ec2-44-196-8-220.compute-1.amazonaws.com:5432/d4n89ir995sblm'
-
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db' # comment out when deploy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://tuzhmmegshfmyv:c4a1cfa40a3b3eb182adaa3616137bceeb613fe5331b575fa861d2d6d4624a9f@ec2-44-196-8-220.compute-1.amazonaws.com:5432/d4n89ir995sblm'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -72,6 +65,6 @@ if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO)
 
     # db.drop_all() # reset database
-    db.create_all()
+    # db.create_all() # comment out when deploy
     # print(UrlMapping.query.all())
     app.run()
